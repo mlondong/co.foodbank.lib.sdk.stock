@@ -1,17 +1,23 @@
 package co.com.foodbank.stock.sdk.model;
 
+import java.io.Serializable;
 import java.util.Date;
-import co.com.foodbank.contribution.dto.IContribution;
-import co.com.foodbank.product.dto.IProduct;
+import co.com.foodbank.contribution.dao.ContributionData;
+import co.com.foodbank.product.dto.ProductData;
 
 /**
  * @author mauricio.londono@gmail.com co.com.foodbank.stock.sdk.model 27/07/2021
  */
-public class ResponseStockData {
+public class ResponseStockData implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
     private String id;
-    private IContribution contribution;
-    private IProduct product;
+    private ContributionData contribution;
+    private ProductData product;
     private Date dateStock;
     private Long quantity;
 
@@ -21,6 +27,18 @@ public class ResponseStockData {
      */
     public ResponseStockData() {}
 
+
+    public ProductData getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductData product) {
+        this.product = product;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
     public String getId() {
         return id;
@@ -32,24 +50,15 @@ public class ResponseStockData {
     }
 
 
-    public IContribution getContribution() {
+    public ContributionData getContribution() {
         return contribution;
     }
 
 
-    public void setContribution(IContribution contribution) {
+    public void setContribution(ContributionData contribution) {
         this.contribution = contribution;
     }
 
-
-    public IProduct getProduct() {
-        return product;
-    }
-
-
-    public void setProduct(IProduct product) {
-        this.product = product;
-    }
 
 
     public Date getDateStock() {
