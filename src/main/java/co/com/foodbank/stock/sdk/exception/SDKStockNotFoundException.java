@@ -14,7 +14,7 @@ public class SDKStockNotFoundException extends Exception {
     private String id;
 
     public SDKStockNotFoundException(String id, String message) {
-        super(message);
+        super(id + " " + message);
         this.setId(id);
     }
 
