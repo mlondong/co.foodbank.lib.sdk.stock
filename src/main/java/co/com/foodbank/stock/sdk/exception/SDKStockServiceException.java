@@ -12,4 +12,9 @@ public class SDKStockServiceException extends Exception {
         super(e);
     }
 
+    public SDKStockServiceException(String msj) {
+        super(msj);
+    }
+
+
 }

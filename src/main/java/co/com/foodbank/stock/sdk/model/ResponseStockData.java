@@ -2,8 +2,8 @@ package co.com.foodbank.stock.sdk.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import co.com.foodbank.contribution.dao.ContributionData;
-import co.com.foodbank.product.dto.ProductData;
+import co.com.foodbank.contribution.dto.response.ContributionData;
+import co.com.foodbank.product.dto.request.ProductData;
 
 /**
  * @author mauricio.londono@gmail.com co.com.foodbank.stock.sdk.model 27/07/2021
