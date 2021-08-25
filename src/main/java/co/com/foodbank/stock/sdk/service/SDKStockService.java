@@ -3,7 +3,6 @@ package co.com.foodbank.stock.sdk.service;
 import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -22,6 +21,7 @@ import co.com.foodbank.stock.sdk.exception.SDKStockServiceException;
 import co.com.foodbank.stock.sdk.exception.SDKStockServiceIllegalArgumentException;
 import co.com.foodbank.stock.sdk.exception.SDKStockServiceNotAvailableException;
 import co.com.foodbank.stock.sdk.model.ResponseStockData;
+import co.com.foodbank.stock.sdk.util.UrlStock;
 
 /**
  * @author mauricio.londono@gmail.com co.com.foodbank.stock.sdk.service
@@ -40,18 +40,8 @@ public class SDKStockService implements ISDKStockService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Value("${urlSdkStockfindContrib}")
-    private String urlSdkStockfindContrib;
-
-    @Value("${urlSdkStockfindProduct}")
-    private String urlSdkStockfindProduct;
-
-    @Value("${urlSdkStockUpdate}")
-    private String urlSdkStockUpdate;
-
-    @Value("${urlSdkStockById}")
-    private String urlSdkStockById;
-
+    @Autowired
+    private UrlStock urlstock;
 
 
     @Override
@@ -68,7 +58,7 @@ public class SDKStockService implements ISDKStockService {
 
             String response =
                     restTemplate
-                            .exchange(urlSdkStockfindContrib + idContribution,
+                            .exchange(urlstock.tofindContbStock(idContribution),
                                     HttpMethod.GET, entity, String.class)
                             .getBody();
 
@@ -108,7 +98,7 @@ public class SDKStockService implements ISDKStockService {
 
             String response =
                     restTemplate
-                            .exchange(urlSdkStockfindProduct + idProduct,
+                            .exchange(urlstock.toFindProductStock(idProduct),
                                     HttpMethod.GET, entity, String.class)
                             .getBody();
 
@@ -149,7 +139,7 @@ public class SDKStockService implements ISDKStockService {
 
             String response =
                     restTemplate
-                            .exchange(urlSdkStockUpdate + _idStock,
+                            .exchange(urlstock.toUpdateStock(_idStock),
                                     HttpMethod.PUT, entity, String.class)
                             .getBody();
 
@@ -188,8 +178,11 @@ public class SDKStockService implements ISDKStockService {
             httpHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
             HttpEntity<String> entity = new HttpEntity<String>(httpHeaders);
 
-            String response = restTemplate.exchange(urlSdkStockById + idStock,
-                    HttpMethod.GET, entity, String.class).getBody();
+            String response =
+                    restTemplate
+                            .exchange(urlstock.toFindStockById(idStock),
+                                    HttpMethod.GET, entity, String.class)
+                            .getBody();
 
             return objectMapper.readValue(response,
                     new TypeReference<ResponseStockData>() {});
